@@ -1,0 +1,19 @@
+ALGORITMO
+  SUDOKUVALIDO
+ENTRADA
+  CANTIDAD a de digitos posibles
+  MATRIZ m de dxd completa con valores de 1 a d en cada celda
+SALIDA
+  BOOLEANO indica si la matriz sudoku es valida
+PSEUDO
+  RES <- VERDADERO
+  PARA I De 1..d MIENTRAS RES = VERDADERO
+    PARA J De 1..d
+      VALORABUSCAR <- M[I][J]
+      SI NO ESUNICOENFILA(M, VALORABUSCAR, I) O NO ESUNICOENCOLUMNA(M, VALORABUSCAR, J)
+        RES <- FALSO
+      FIN SI
+    FIN PARA
+  FIN PARA
+  DEVOLVER RES
+FIN

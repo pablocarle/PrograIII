@@ -1,0 +1,13 @@
+ALGORITMO
+  SUDOKU_BACKTRACKING
+ENTRADA
+  CANTIDAD d de digitos posibles de 1 a d
+  MATRIZ m de dxd de enteros con algunas celdas completas con valores de 1 a d
+  TUPLA POS(X,Y) con la posicion actual, inicialmente (0,0)
+  NUMERO con cantidad de numeros correctamente ubicados
+SALIDA
+  MATRIZ dxd con el resultado, ? si no hay solucion
+PSEUDO
+  RES <- ?
+  SI POS = (d,d) //Deveria ser verificar la posicion indefinida que queda luego de la ultima
+    SI SUDOKUVALIDO(

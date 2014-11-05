@@ -1,0 +1,43 @@
+ALGORITMO
+  ESUNICOENFILA
+ENTRADA
+  MATRIZ m cuadrada
+  VALOR a buscar
+  FILA i actual
+SALIDA
+  BOOLEANO indica si el valor es unico en fila i de la matriz m
+PSEUDO
+  RES <- VERDADERO
+  CONTAR <- 0
+  PARA J De 1..d MIENTRAS RES = VERDADERO
+    SI M[I][J] = VALOR
+      CONTAR <- CONTAR + 1
+    FIN SI
+  FIN PARA
+  SI CONTAR > 1
+    RES <- FALSO
+  FIN SI
+  DEVOLVER RES
+FIN
+
+ALGORITMO
+  ESUNICOENCOLUMNA
+ENTRADA
+  MATRIZ m cuadrada
+  VALOR a buscar
+  COLUMNA i actual
+SALIDA
+  BOOLEANO indica si el valor es unico en fila i de la matriz m
+PSEUDO
+  RES <- VERDADERO
+  CONTAR <- 0
+  PARA J De 1..d MIENTRAS RES = VERDADERO
+    SI M[J][I] = VALOR
+      CONTAR <- CONTAR + 1
+    FIN SI
+  FIN PARA
+  SI CONTAR > 1
+    RES <- FALSO
+  FIN SI
+  DEVOLVER RES
+FIN

@@ -10,4 +10,16 @@ SALIDA
 PSEUDO
   RES <- ?
   SI POS = (d,d) //Deveria ser verificar la posicion indefinida que queda luego de la ultima
-    SI SUDOKUVALIDO(
+    SI SUDOKUVALIDO(d, m)
+      RES <- m
+    FIN SI
+  SINO
+    PARA CADA ELEM en d MIENTRAS RES = ?
+      SI ESUNICOENFILA(M, ELEM, POS.X) Y ESUNICOENCOLUMNA(M, ELEM, POS.Y)
+        M[POS.X][POS.Y] <- ELEM
+        RES <- SUDOKU_BACKTRACKING(d, m, PROXPOS(m, POS), NUMUB + 1)
+      FIN SI
+    FIN PARA
+  FIN SI
+  DEVOLVER RES
+FIN

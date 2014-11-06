@@ -2,30 +2,26 @@ package impl;
 
 import TDA.MatrizTDA;
 
-public class NuevaMatriz<E> implements MatrizTDA<E> {
-
-	@Override
-	public void inicializarMatriz(int arg0) {
-		// TODO Auto-generated method stub
-		
+public class NuevaMatriz<E> implements MatrizTDA<E>{
+	E[][] matriz;
+	
+	public void inicializarMatriz(int arg0){
+		matriz = new E[arg0][arg0];
 	}
 
-	@Override
 	public int obtenerDimension() {
-		// TODO Auto-generated method stub
-		return 0;
+		int i;
+		int j;
+		for (i = 1; obtenerValor(i, 1) != null;i++);
+		for (j = 1; obtenerValor(1, j) != null;j++);
+		return i*j;
 	}
 
-	@Override
 	public E obtenerValor(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		return null;
+		return matriz[arg0][arg1];
 	}
 
-	@Override
 	public void setearValor(int arg0, int arg1, E arg2) {
-		// TODO Auto-generated method stub
-		
+		matriz[arg0][arg1] = arg2;
 	}
-
 }

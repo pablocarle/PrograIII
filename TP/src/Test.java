@@ -5,10 +5,12 @@ import impl.NuevaMatriz;
 
 public class Test {
 	public class Posicion{
-		public int i;
-		public int j;
+		public int x;
+		public int y;
 	}
-
+	
+	static  MatrizTDA<Integer> nuevaMatriz;
+	
 	public static void main(String[] args) {
 		
 		MatrizTDA<Integer> nuevaMatriz = new Matriz<Integer>();
@@ -77,7 +79,19 @@ public class Test {
 	
 	public static Posicion proximaPosicion(Posicion pos) {
 		Posicion res=null;
-		
+		int dimension;
+		int limite;
+        dimension = nuevaMatriz.obtenerDimension();
+        limite = dimension / 2;
+        
+        if (pos.x == limite && pos.y == limite){
+        	res.x = 1;
+        	res.y = 1;
+        }else{
+        	res.x = pos.x + 1;
+        	res.y = pos.y + 1;
+        }
+        	
 		return res;
 	}
 

@@ -5,11 +5,11 @@ import TDA.MatrizTDA;
 
 public class SudokuUtil {
 	
+	public static final int DIMENSION = 4;
+	
 	public SudokuUtil() {
 		super();
 	}
-	
-	private static MatrizTDA<Integer> nuevaMatriz;
 	
 	public static void main(String[] args) {
 		MatrizTDA<Integer> nuevaMatriz = new Matriz<Integer>();
@@ -34,22 +34,23 @@ public class SudokuUtil {
 	
 	public static boolean sudokuValido(MatrizTDA<Integer> tablero, int cantDigitos){
 		boolean res = true;
-		int valorAbuscar = 0;
+		Integer valorAbuscar = 0;
 		for (int i = 0; res && (i < cantDigitos); i++) {
-			for (int j = 0; j < cantDigitos; j++) {
-				valorAbuscar = tablero.obtenerValor(i, j);
-				if (!esUnicoEnFila(tablero, valorAbuscar, i) || !esUnicoEnColumna(tablero, valorAbuscar, j)) {
+			for (int j = 0; res && (j < cantDigitos); j++) {
+				valorAbuscar = tablero.obtenerValor(i, j); //Falta evaluar en cuadrante
+				if (valorAbuscar == null || !esUnicoEnFila(tablero, valorAbuscar, i) || !esUnicoEnColumna(tablero, valorAbuscar, j)) {
 					res = false;
 				}
 			}
 		}
+		System.out.println("sudokuvalido: " + res);
 		return res;
 	}
 	
 	public static boolean esUnicoEnFila (MatrizTDA<Integer> tablero, int valorAbuscar, int filaActual) {
 		boolean res = true;
 		int contar = 0;
-		for (int j = 0; tablero.obtenerValor(filaActual, j) != null && contar<=1; j++) {
+		for (int j = 0; j < tablero.obtenerDimension() && tablero.obtenerValor(filaActual, j) != null && contar<=1; j++) {
 			if (tablero.obtenerValor(filaActual, j) == valorAbuscar){
 				contar++;
 			}
@@ -65,7 +66,7 @@ public class SudokuUtil {
 	public static boolean esUnicoEnColumna (MatrizTDA<Integer> tablero, int valorAbuscar, int columnaActual) {
 		boolean res = true;
 		int contar = 0;
-		for (int i = 0; tablero.obtenerValor(i, columnaActual) != null && contar <= 1; i++) {
+		for (int i = 0; i < tablero.obtenerDimension() && tablero.obtenerValor(i, columnaActual) != null && contar <= 1; i++) {
 			if (tablero.obtenerValor(i, columnaActual) == valorAbuscar){
 				contar++;
 			}
@@ -80,11 +81,9 @@ public class SudokuUtil {
 	
 	public static Posicion proximaPosicion(Posicion pos) {
 		Posicion res;
-		int limite = nuevaMatriz.obtenerDimension();
-        
-		if (pos.getX() == limite && pos.getY() == limite) {
-			res = null; //Ultimo elemento
-		} else if (pos.getY() == limite){
+		if (pos.getX() == (SudokuUtil.DIMENSION - 1) && (pos.getY() == SudokuUtil.DIMENSION - 1)) {
+			res = new Posicion(0, 0); //Ultimo elemento
+		} else if (pos.getY() == (SudokuUtil.DIMENSION - 1)){
         	res = new Posicion(pos.getX() + 1, 0);
         } else {
         	res = new Posicion(pos.getX(), pos.getY() + 1);

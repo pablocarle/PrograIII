@@ -1,0 +1,16 @@
+Nueva matriz de booleans.
+
+::Matriz filas
+
+
+
+::Matriz columnas
+
+d es el valor iterado para el backtracking
+si Fil[d, pos.x] = false y Col[d, pos.y] = falso
+	Paso las posiciones en ambas matrices a true
+	y hago backtracking
+
+		res = backtrack
+		si res no es solucion
+			Fil[dm pos.x] = false

@@ -1,0 +1,96 @@
+ALGORITMO
+  SUDOKUCONPODA
+ENTRADA
+  CANTIDAD d de digitos posibles de 1 a d
+  MATRIZ m de dxd de enteros con algunas celdas completas con valores de 1 a d y otras con el valor indefinido (?)
+  TUPLA POS(X,Y) con la posicion actual, inicialmente (0,0)
+  NUMERO con cantidad de numeros correctamente ubicados
+  MATRIZ FILAS de booleanos de dxd donde Fila[i,j] indica si el digito i(de 1 a 9) ya fue ubicado en la fila j inicialmente toda en falso
+  MATRIZ COLS  de booleanos de dxd donde Cols[i,j] indica si el digito i(de 1 a 9) ya fue ubicado en la columna j inicialmente toda en falso
+  MATRIZ CUADRANTE de booleanos de dxd donde Cuandrante[i,j] indica si el digito i(de 1 a 9) ya fue ubicado en el cuadrante j inicialmente toda en falso
+SALIDA
+  MATRIZ dxd con el resultado, ? si no hay solucion	
+PSEUDO
+  RES <- ?
+  SI numero = d*d
+    SI SUDOKUVALIDO(d, m)
+      RES <- m
+    FIN SI
+  SINO
+        CUA<-CONSULTARCUADRANTE(POS,M)
+	SI M[POS.X][POS.Y] = ?
+		ENCONTRADO <- FALSO
+		PARA CADA ELEM en d MIENTRAS NO ENCONTRADO
+			SI FILAS[ELEM][POS.X] ES FALSO
+                         Y  COLS[ELEM][POS.Y] ES FALSO
+                         Y CUADRANTE[ELEM][CUA] ES FALSO     
+ 
+  			    M[POS.X][POS.Y] <- ELEM
+                            FILAS[ELEM][POS.X] <- VERDADERO
+                            COLS[ELEM][POS.Y] <- VERDADERO
+                            CUADRANTE[ELEM][CUA] <- VERDADERO
+
+			    RES <- SUDOKUCONPODA(d, m, PROXPOS(m, POS), NUMUB + 1,FILAS,COLS,CUADRANTE)
+
+			    SI RES NO = ?
+		               ENCONTRADO <- VERDADERO
+
+	 	 	    FIN SI
+                        FIN SI
+		FIN PARA
+	SINO    
+                ELEM <- M[POS.X][POS.Y]
+                FILAS[ELEM][POS.X] <- VERDADERO
+                 COLS[ELEM][POS.Y] <- VERDADERO
+                CUADRANTE[ELEM][CUA] <- VERDADERO
+                  
+		RES <- SUDOKUCONPODA(d, m, PROXPOS(m, POS), NUMUB + 1,FILAS,COLS,CUADRANTE)
+	FIN SI
+  FIN SI
+  DEVOLVER RES
+FIN
+
+
+
+ALGORITMO CONSULTARCUADRANTE
+ENTRADA 
+  TUPLA POS(X,Y) POSICION A CONSULTAR
+  MATRIZ M DE DXD ENTEROS 
+SALIDA 
+  ENTERO CON EL NUMERO DE CUADRANTE DE LA POSICION INFORMADA
+PSEUDO 
+
+INIX   = 0
+INIY   = 0
+FINX    = TAMAÑOCUADRANTE
+FINY    = TAMAÑOCUADRANTE
+CUADRANTE = 1
+
+MIENTRAS NO ENCONTRADO
+     PARA I=INIX..FINX HACER
+          PARA J=INIY..FINY HACER
+          FIN PARA
+     FIN PARA
+      
+     CUADRANTE++
+     
+     SI INIX = DIMENSION      //*TERMINE DE RECORRER TODAS LAS FILAS 
+        INIX = 0
+        FINX = TAMAÑOCUADRANTE
+        INIY = 
+     SINO
+        INIX = FINX
+        FINX = FINX*CUADRANTE-1
+     FIN SI
+
+     SI INIY = DIMENSION     //*TERMINE DE RECORRER TODAS LAS COLUMNAS 
+        INIY = INIY - TAMAÑOCUADRANTE 
+        FINY = INIY + TAMAÑOCUADRANTE 
+     SINO 
+        INIY = FINY
+  
+     SI INICIO = DIMENSION
+        INICIO = 0
+     SINO 
+        INICIO = FIN 
+     FIN SI

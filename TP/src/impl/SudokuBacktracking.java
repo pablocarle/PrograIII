@@ -3,6 +3,10 @@ package impl;
 import TDA.MatrizTDA;
 
 public class SudokuBacktracking {
+	
+	public static MatrizTDA<Integer> resolverSudoku(MatrizTDA<Integer> tablero) {
+		return resolverSudokuBK(tablero.obtenerDimension(), tablero, new Posicion(0, 0), 0);
+	}
 
 	public static MatrizTDA<Integer> resolverSudokuBK(int maxDigitoPosible, MatrizTDA<Integer> matrizActual, Posicion posActual, int correctos) {
 		MatrizTDA<Integer> res = null;

@@ -136,18 +136,28 @@ public class SudokuUtilTest {
 
 	@Test
 	public void testSudokuValido() {
+		System.out.println("Sudoku Valido:");
+		SudokuUtil.mostrarTablero(tablero1);
 		boolean valido = SudokuUtil.sudokuValido(tablero1, SudokuUtil.DIMENSION);
 		assertTrue("tablero1 debia ser valido y volvio invalido", valido);
 		
+		System.out.println("Sudoku Invalido - Repeticion en Fila");
+		SudokuUtil.mostrarTablero(tablero2);
 		valido = SudokuUtil.sudokuValido(tablero2, SudokuUtil.DIMENSION);
 		assertFalse("tablero2 es invalido por repeticion en fila y volvio valido", valido);
 		
+		System.out.println("Sudoku Invalido - Repeticion en columna");
+		SudokuUtil.mostrarTablero(tablero3);
 		valido = SudokuUtil.sudokuValido(tablero3, SudokuUtil.DIMENSION);
 		assertFalse("tablero3 es invalido por repeticion en columna y volvio valido", valido);
 		
+		System.out.println("Sudoku Valido - Incompleto");
+		SudokuUtil.mostrarTablero(tablero4);
 		valido = SudokuUtil.sudokuValido(tablero4, SudokuUtil.DIMENSION);
 		assertTrue("tablero4 es valido incompleto y volvio invalido", valido);
 		
+		System.out.println("Sudoku Invalido - Repeticion en cuadrante");
+		SudokuUtil.mostrarTablero(tablero5);
 		valido = SudokuUtil.sudokuValido(tablero5, SudokuUtil.DIMENSION);
 		assertFalse("tablero5 es invalido por repeticion en cuadrante y volvio valido", valido);
 	}

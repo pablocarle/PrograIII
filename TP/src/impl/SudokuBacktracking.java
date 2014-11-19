@@ -42,14 +42,12 @@ public class SudokuBacktracking {
 			if (SudokuUtil.sudokuValido(matrizActual, maxDigitoPosible)){
 				res = matrizActual;
 			}
-		}else{
+		} else {
 			int cuad = consultarCuadrante(posActual, matrizActual);
 			if (matrizActual.obtenerValor(posActual.getX(), posActual.getY()) == null){
 				boolean encontrado = false;
-				for (int i = 1 ; i <= maxDigitoPosible && !encontrado;i++){
-					if (filas.obtenerValor(i, posActual.getX()) == false && 
-				     columnas.obtenerValor(i, posActual.getY())== false &&
-				     cuadrante.obtenerValor(i, cuad) == false){
+				for (int i = 1 ; i <= maxDigitoPosible && !encontrado; i++){
+					if (!filas.obtenerValor(i, posActual.getX()) && !columnas.obtenerValor(i, posActual.getY()) && !cuadrante.obtenerValor(i, cuad)){
 						matrizActual.setearValor(posActual.getX(), posActual.getY(), i);
 						System.out.println("Posicion " + posActual.getX() + " " + posActual.getY());
 						System.out.println("Valor " + matrizActual.obtenerValor(posActual.getX(), posActual.getY()));
@@ -61,13 +59,13 @@ public class SudokuBacktracking {
 						
 						if (res != null){
 							encontrado = true;
- 						}else{
+ 						} else {
+							//No es solucion, fijarse de pasar a false valor de matriz que probaste (columnas / cuadrante / filas)
  							matrizActual.setearValor(posActual.getX(),posActual.getY(), null);
 						}
 					}
 				}
-			}else{
-				
+			} else {
 				int elem = matrizActual.obtenerValor(posActual.getX(), posActual.getY());
 				filas.setearValor(elem, posActual.getX(), true);
 				columnas.setearValor(elem, posActual.getY(), true);
@@ -75,8 +73,6 @@ public class SudokuBacktracking {
 				
 				res = resolverSudokuBKConPoda(maxDigitoPosible, matrizActual, SudokuUtil.proximaPosicion(posActual), numerosUbicados + 1, filas, columnas, cuadrante);
 			}
-			
-			
 		}
 		return res;
 	}
@@ -102,7 +98,7 @@ public class SudokuBacktracking {
 					}
 				}
 			}
-			if (encontrado == false){
+			if (!encontrado){
 				cuadrante++;
 				if (finx == dimension){
 					if (finy == dimension && finx == dimension){

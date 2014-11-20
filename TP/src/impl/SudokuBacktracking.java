@@ -1,11 +1,29 @@
 package impl;
 
+import Implementaciones.Matriz;
 import TDA.MatrizTDA;
 
 public class SudokuBacktracking {
 	
 	public static MatrizTDA<Integer> resolverSudoku(MatrizTDA<Integer> tablero) {
 		return resolverSudokuBK(tablero.obtenerDimension(), tablero, new Posicion(0, 0), 0);
+	}
+	
+	public static MatrizTDA<Integer> resolverSudokuPoda(MatrizTDA<Integer> tablero) {
+		MatrizTDA<Boolean> filas = new Matriz<Boolean>();
+		MatrizTDA<Boolean> columnas = new Matriz<Boolean>();
+		MatrizTDA<Boolean> cuadrante = new Matriz<Boolean>();
+		filas.inicializarMatriz(tablero.obtenerDimension());
+		columnas.inicializarMatriz(tablero.obtenerDimension());
+		cuadrante.inicializarMatriz(tablero.obtenerDimension());
+		for (int i = 0; i < tablero.obtenerDimension(); i++) {
+			for (int j = 0; i < tablero.obtenerDimension(); j++) {
+				filas.setearValor(i, j, Boolean.FALSE);
+				columnas.setearValor(i, j, Boolean.FALSE);
+				cuadrante.setearValor(i, j, Boolean.FALSE);
+			}
+		}
+		return resolverSudokuBKConPoda(tablero.obtenerDimension(), tablero, new Posicion(0, 0), 0, filas, columnas, cuadrante);
 	}
 
 	public static MatrizTDA<Integer> resolverSudokuBK(int maxDigitoPosible, MatrizTDA<Integer> matrizActual, Posicion posActual, int correctos) {

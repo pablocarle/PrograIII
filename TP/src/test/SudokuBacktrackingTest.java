@@ -40,19 +40,15 @@ public class SudokuBacktrackingTest {
 	public void testResolverSudokuBK() {
 		MatrizTDA<Integer> tablero1 = new Matriz<Integer>();
 		tablero1.inicializarMatriz(SudokuUtil.DIMENSION);
-		tablero1.setearValor(0, 0, 2);
+		tablero1.setearValor(0, 0, 1);
 		tablero1.setearValor(1, 1, 4);
-		tablero1.setearValor(2, 2, 4);
-		tablero1.setearValor(3, 3, 2);
-		
-		MatrizTDA<Integer> sudoku = SudokuBacktracking.resolverSudokuBK(SudokuUtil.DIMENSION, tablero1, new Posicion(0, 0), 0);
-		System.out.println(sudoku);
-		if (sudoku != null)
-			SudokuUtil.mostrarTablero(sudoku);
+		tablero1.setearValor(3, 2, 4);
+		System.out.println("Tablero inicial: ");
+		SudokuUtil.mostrarTablero(tablero1);
+		MatrizTDA<Integer> sudoku = SudokuBacktracking.resolverSudoku(tablero1);
+		assertNotNull("No se encontro solucion al sudoku de tablero1", sudoku);
+		System.out.println("Sudoku Resuelto: ");
+		SudokuUtil.mostrarTablero(sudoku);
 	}
 
-	@Test
-	public void testResolverSudokuBKConPoda() {
-		fail("Not yet implemented"); // TODO
-	}
 }

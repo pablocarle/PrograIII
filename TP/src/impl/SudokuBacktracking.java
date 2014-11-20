@@ -38,7 +38,6 @@ public class SudokuBacktracking {
 		MatrizTDA<Integer> res = null;
 		
 		if (numerosUbicados == (maxDigitoPosible * maxDigitoPosible)){
-			SudokuUtil.mostrarTablero(matrizActual);
 			if (SudokuUtil.sudokuValido(matrizActual, maxDigitoPosible)){
 				res = matrizActual;
 			}
@@ -47,29 +46,32 @@ public class SudokuBacktracking {
 			if (matrizActual.obtenerValor(posActual.getX(), posActual.getY()) == null){
 				boolean encontrado = false;
 				for (int i = 1 ; i <= maxDigitoPosible && !encontrado; i++){
-					if (!filas.obtenerValor(i, posActual.getX()) && !columnas.obtenerValor(i, posActual.getY()) && !cuadrante.obtenerValor(i, cuad)){
+					//Pregunta si el elemento i ya fue cargado en alguna fila, columna o cuadrante
+					//Solo admite los valores que no fueron cargados
+					if (!filas.obtenerValor(i - 1, posActual.getX()) && !columnas.obtenerValor(i - 1, posActual.getY()) && !cuadrante.obtenerValor(i - 1, cuad - 1)){
 						matrizActual.setearValor(posActual.getX(), posActual.getY(), i);
-						System.out.println("Posicion " + posActual.getX() + " " + posActual.getY());
-						System.out.println("Valor " + matrizActual.obtenerValor(posActual.getX(), posActual.getY()));
-						filas.setearValor(i, posActual.getX(), true);
-						columnas.setearValor(i, posActual.getY(), true);
-						cuadrante.setearValor(i, cuad, true);
+						filas.setearValor(i - 1, posActual.getX(), true);
+						columnas.setearValor(i - 1 , posActual.getY(), true);
+						cuadrante.setearValor(i - 1, cuad - 1, true);
 						
 						res = resolverSudokuBKConPoda(maxDigitoPosible, matrizActual, SudokuUtil.proximaPosicion(posActual), numerosUbicados + 1, filas, columnas, cuadrante);
 						
 						if (res != null){
 							encontrado = true;
  						} else {
-							//No es solucion, fijarse de pasar a false valor de matriz que probaste (columnas / cuadrante / filas)
+							//No es solucion pasa a false valor de matriz que probaste (columnas / cuadrante / filas)
+ 							filas.setearValor(i - 1, posActual.getX(), false);
+ 							columnas.setearValor(i - 1 , posActual.getY(), false);
+ 							cuadrante.setearValor(i - 1, cuad - 1, false);
  							matrizActual.setearValor(posActual.getX(),posActual.getY(), null);
 						}
 					}
 				}
 			} else {
-				int elem = matrizActual.obtenerValor(posActual.getX(), posActual.getY());
-				filas.setearValor(elem, posActual.getX(), true);
-				columnas.setearValor(elem, posActual.getY(), true);
-				cuadrante.setearValor(elem, cuad, true);
+	 			int elem = matrizActual.obtenerValor(posActual.getX(), posActual.getY());
+				filas.setearValor(elem - 1, posActual.getX(), true);
+				columnas.setearValor(elem - 1, posActual.getY(), true);
+				cuadrante.setearValor(elem - 1, cuad - 1, true);
 				
 				res = resolverSudokuBKConPoda(maxDigitoPosible, matrizActual, SudokuUtil.proximaPosicion(posActual), numerosUbicados + 1, filas, columnas, cuadrante);
 			}
@@ -90,7 +92,6 @@ public class SudokuBacktracking {
 		int cuadrante = 1;
 		boolean encontrado = false;
 		while (encontrado == false){
-	//		System.out.println("Posicion consultada : " + pos.getX() + " " + pos.getY());
 			for (int i = inix ;i <= finx; i++){
 				for (int j = iniy; j<= finy; j++){
 					if (i == pos.getX() && j== pos.getY()){
